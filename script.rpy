@@ -35,13 +35,13 @@ image LaranjaAnjaN1 = im.Scale("images/Laranja Anja/Laranja Anja Normal.png", 50
 image LaranjaAnjaN2 = im.Scale("images/Laranja Anja/Laranja Anja Normal 2.png", 500, 800)
 
 
-define leftpos = Position(xalign=-0.2, yalign=1.0)
+define leftpos = Position(xalign=-0.1, yalign=1.0)
 define midleftpos = Position(xalign=0.3, yalign=1.0)
 define midrightpos = Position(xalign=0.7, yalign=1.0)
-define rightpos = Position(xalign=1.2, yalign=1.0)
+define rightpos = Position(xalign=1.1, yalign=1.0)
 
 transform half_body:
-    zoom 1.3        # aumenta o tamanho da personagem
+    zoom 1.4        # aumenta o tamanho da personagem
     yalign -0.10      # desce um pouco (do tronco pra cima!!)
 
 # Fundo cenas
@@ -353,7 +353,7 @@ label start:
     SteveApple "Vamos ir para algum lugar mais confortável, temos que explicar tudo certinho."
 
     #---------------------------------------------------------------------------------------------------
-    #CAPITULO5 CENA1
+
     #CAPITULO5 CENA1
         # Cena 1: cafeteria tarde
     #scene bg_cafeteria with fade
@@ -428,7 +428,7 @@ label start:
     AyaPapaya "Espere! nome do principal!!!"
 
     #stop sound
-    #play sound sound_door close
+    #play sound porta_batendo
 
     #CAPITULO 7
     # Cena 1 — cafeteria 
