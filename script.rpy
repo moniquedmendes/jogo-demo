@@ -45,6 +45,9 @@ transform half_body:
     yalign -0.10      # desce um pouco (do tronco pra cima!!)
 
 # Fundo cenas
+#image bg_cafeteria = im.Scale("images/Background/bg_cafeteria_tarde.jpg", config.screen_width, config.screen_height)
+#image bg_slide_dcnb = im.Scale("images/Background/bg_slide_dcnb.png", config.screen_width, config.screen_height)
+
 image bg_escritorio = im.Scale("images/Background/bg office.png", config.screen_width, config.screen_height)
 image bg_quarto = im.Scale("images/Background/bg_quarto.jpg", config.screen_width, config.screen_height)
 image bg_rua = im.Scale("images/Background/bg_rua.jpg", config.screen_width, config.screen_height)
@@ -54,6 +57,8 @@ image bg_parque_tarde = im.Scale("images/Background/bg_parque_tarde.jpg", config
 #image = RECEPCAO
 #image = DA RUA
 image bg_casa_noite = im.Scale("images/Background/bg_casa_noite.jpg", config.screen_width, config.screen_height)
+#image bg_cafeteria = im.Scale("images/Background/bg_cafeteria.jpg", config.screen_width, config.screen_height)
+#image bg_apartamento = im.Scale("images/Background/bg_apartamento.jpg", config.screen_width, config.screen_height)
 
 #image = CASA (lado de dentro "dia")
 
@@ -66,6 +71,21 @@ define sound_heartbeat = "audio/coracao.mp3"
 # define sound_engasgo = "audio/engasgo.mp3"
 #define sound_vento = "audio/vento_leve.mp3"
 #define sound_voz_fundo = "audio/vozes_ao_fundo.mp3"
+
+#define s_cafe = "audio/cafeteria_ambiente.mp3"
+#define s_xicaras = "audio/xicaras_murmurios.mp3"
+#define s_cafeteira = "audio/cafeteira.wav"
+#define s_silencio_pesado = "audio/batida_coracao_lenta.mp3"
+
+#define sound_engasgo = "audio/engasgo.mp3"
+#define sound_vento = "audio/vento_leve.mp3"
+#define sound_voz_fundo = "audio/vozes_ao_fundo.mp3"
+#define sound_cafeteria = "audio/cafeteria.mp3"
+#define sound_silence = "audio/silencio_tenso.mp3"
+#define sound_chaleira = "audio/chaleira.mp3"
+
+# Musica?
+#define music_relax = "audio/musica_relaxante.mp3"
 
 # The game starts here.
 
@@ -332,6 +352,182 @@ label start:
 
     SteveApple "Vamos ir para algum lugar mais confortável, temos que explicar tudo certinho."
 
+    #---------------------------------------------------------------------------------------------------
+    #CAPITULO5 CENA1
+    #CAPITULO5 CENA1
+        # Cena 1: cafeteria tarde
+    #scene bg_cafeteria with fade
+    #play sound sound_cafeteria loop
+    narrator "O Principal entra na cafeteria ainda abalado pelo que presenciou no parque. Ele se senta em uma mesa afastada. Aos poucos, quatro pessoas se aproximam e sentam-se ao redor."
+
+    show SteveAppleSmile at midleftpos, half_body
+    SteveApple "Primeiramente, vamos nos apresentar. Eu sou Steve Apple, consultor geral da área da saúde."
+
+    show AyaPapayaN1 at leftpos, half_body
+    AyaPapaya "Eu sou Aiya Papaya, nutricionista especialista em alimentação fit."
+
+    show BromeliaBromeliaN2 at midrightpos, half_body
+    BromeliaBromelia "Eu sou Bromélia Bromélia, nutricionista especialista em nutrição esportiva!"
+
+    show LaranjaAnjaN1 at rightpos, half_body
+    LaranjaAnja "E eu sou Laranja Anja, formada em enfermagem."
+
+    p "Eu sou... nome do principal, apenas um assalariado comum."
+
+    SteveApple " nome do principal, você deve estar confuso. Mas para o seu futuro, precisa compreender o que é DCNT e como isso pode mudar sua vida."
+
+    stop sound
+
+    # Cena 2 — Flash educativa
+    #scene bg_flash with fade
+    #play sound sound_flash loop
+    narrator "A tela mostra gráficos, palavras-chave e ícones de saúde."
     
+    SteveApple "DCNT significa Doenças Crônicas Não Transmissíveis. Você não as 'pega' de alguém, mas desenvolve com o tempo."
+    SteveApple "Elas surgem por má alimentação, falta de atividade física, desidratação, carência de nutrientes, fatores genéticos..."
+    SteveApple "Ou seja, para não se tornar um monstro DCNT, é preciso viver ao contrário desses maus hábitos."
+
+    narrator "Imagens rápidas surgem: sedentarismo, fast food em excesso, refrigerantes, cigarros, seguidos por alternativas saudáveis como caminhada, frutas e água."
+
+    #stop sound
+
+    # Cena 3 — Confronto na cafeteria
+    #scene bg_cafeteria with fade
+    #play sound sound_heartbeat loop
+    narrator "O clima na cafeteria fica pesado, quase silencioso, enquanto o Principal encara os quatro."
+
+    LaranjaAnja "Nós analisamos... e vemos sinais de obesidade, colesterol alto, hipertensão e pré-diabetes."
+
+    p "Vocês estão dizendo que eu sou um doente?!"
+
+    BromeliaBromelia "Estamos dizendo que você corre sério risco de se tornar um monstro DCNT."
+
+    p "Que palhaçada! Vocês falam como se eu estivesse acabado! Mas estou bem!"
+    
+    narrator "O Principal se levanta bruscamente, e tenta sair do local."
+
+    show LaranjaAnjaAngry at rightpos, half_body
+    LaranjaAnja " nome do principal, você sabe que não está bem."
+
+    narrator "Imagens rápidas surgem como flashbacks:"
+    # criar uma função pra fazer o flashback
+    narrator "— Os nuggets brotando da pele."
+    narrator "— Os dedos em forma de batata frita."
+    narrator "— O monstro de donuts gritando no parque."
+
+    LaranjaAnja "Sabemos como dói viver com DCNT. Seu corpo está gritando de dor agora, não está?"
+
+    AyaPapaya "Você come em excesso para tentar silenciar essa dor física e mental."
+
+    p "O que vocês sabem disso?! Vocês parecem tão saudáveis! Como podem dizer que me entendem?!"
+
+    narrator "Ele tira a mão de Laranja e sai correndo da cafeteria."
+    
+    #play sound sound_steps loop
+    narrator "Aiya corre atrás dele."
+    AyaPapaya "Espere! nome do principal!!!"
+
+    #stop sound
+    #play sound sound_door close
+
+    #CAPITULO 7
+    # Cena 1 — cafeteria 
+
+    scene bg_cafeteria with fade
+    #play sound sound_cafeteria loop
+    narrator "Os dois voltam à cafeteria, preocupados com o Principal."
+
+    show BromeliaBromeliaN1 at leftpos, half_body
+    BromeliaBromelia "Você está bem?"
+
+    p "Desculpa gente, eu errei de novo..."
+
+    show SteveAppleSmile at midleftpos, half_body
+    SteveApple "O importante é sua vontade de mudar, de ser alguém melhor."
+
+    show LaranjaAnjaSmile at rightpos, half_body
+    LaranjaAnja "Vamos para nossa base! Lá você poderá entender melhor!"
+
+    hide BromeliaBromeliaN1
+    hide SteveAppleSmile
+    hide LaranjaAnjaSmile
+    stop sound
+
+    # Cena 2: base secreta
+    scene bg_apartamento with fade
+    #play sound sound_silence loop
+    narrator "Eles seguem para a base. É uma sala comum, um apartamento aparentemente normal, mas com detalhes estranhos..."
+    narrator "Não parece que alguém mora ali."
+
+    show LaranjaAnjaN1 at midrightpos, half_body
+    #play sound sound_chaleira
+    LaranjaAnja "Fiz chá de ervas, sinta-se à vontade."
+
+    narrator "Todos se acomodam na sala, reunidos ao redor de uma mesa."
+    stop sound
+    #play music music_relax loop
+
+    p "O que eu devo fazer?"
+
+    show AyaPapayaN1 at leftpos, half_body
+    AyaPapaya "Você precisa entender o que você tem inicialmente. Tem alguma noção do porquê está com o início da DECENT?"
+
+    p "Eu... eu acho que como muita gordura."
+
+    AyaPapaya "Tem algo mais?"
+
+    p "Como muitos doces?"
+
+    show AyaPapayaHappy at leftpos, half_body
+    AyaPapaya "Você deve estar perdido, né? (sorri) É assim mesmo. Tudo que você falou tem a ver com o desenvolvimento da mutação."
+
+    show BromeliaBromeliaN2 at midleftpos, half_body
+    BromeliaBromelia "O importante é você tentar controlar todos os fatores."
+
+    show LaranjaAnjaN2 at midrightpos, half_body
+    LaranjaAnja "Além disso, você precisa se exercitar e tomar bastante água."
+
+    AyaPapaya "Sim, isso é muito importante. Agora, me diga: por que você come tanta gordura e doces?"
+
+    p "Como assim? Eu como porque é gostoso?"
+
+    BromeliaBromelia "Realmente?"
+
+    p "....."
+
+    LaranjaAnja "Eu te entendo. Antes de eu ser uma fada, eu também comia muitos doces..."
+
+    p "Antes de ser fada? Você comia tanto assim? Você não parece... Mas por quê?"
+
+    LaranjaAnja "No meu caso, eu sentia muito estresse por pressão social. Comecei a me julgar e não conseguia contar para ninguém. Então, comecei a comer sem parar. Até não conseguir mais."
+
+    p "Você também tem DECENT?"
+
+    narrator "Laranja sorri com um olhar triste."
+
+    LaranjaAnja "Eu não aparento, mas tenho minhas dificuldades. É segredo."
+
+    narrator "Com olhar envergonhado e um pouco triste, Laranja se aproxima e cochicha para o Principal."
+
+    LaranjaAnja "Esse foi o meu caso... E você? O que te faz comer tanto?"
+
+    narrator "O Principal lembra do trabalho árduo e estressante que possui e, cabisbaixo, comenta com elas."
+
+    p "Eu não estou conseguindo ir bem no meu trabalho... Aí eu me sinto frustrado, angustiado e triste. Quando percebo, estou comendo compulsivamente..."
+
+    BromeliaBromelia "Então o jeito é resolver primeiro o seu estresse."
+
+    SteveApple "E como resolveríamos isso?"
+
+    narrator "O Principal olha com preocupação."
+
+    BromeliaBromelia "Saia do trabalho. Não há porque você ficar em um lugar assim. Você provavelmente é bom em computação! Temos conhecidos que precisam de um secretário. Vai lá!"
+
+    p "Eu não consigo sair assim, do nada... Acho que não consigo."
+
+    narrator "O Principal, ainda receoso, debate por um tempo com as fadas."
+    narrator "Aos poucos, elas conseguem convencê-lo a repensar seu emprego e começar uma nova rotina para melhorar sua saúde."
+
+    #stop music
 
     return
