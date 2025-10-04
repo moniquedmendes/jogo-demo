@@ -529,5 +529,131 @@ label start:
     narrator "Aos poucos, elas conseguem convencê-lo a repensar seu emprego e começar uma nova rotina para melhorar sua saúde."
 
     #stop music
+    #Capitulo 8
+    # Cena 1 
+    label cena8:
+
+    scene bg_casa_noite with fade
+    "Alguns dias depois..."
+    "O principal após mudar de emprego, passou acostumando ao trabalho, diminuindo seu estresse físico e psicológico, conseguindo acalmar a sua compulsão alimentar."
+    "Mas ele ainda não sabia como comia saudavelmente."
+    "Ele foi atrás das fadas, pois recebeu uma mensagem do Steve Apple falando que estava pronto para começar a nova rotina."
+
+    #imagem 
+    "Ele pediu um Uber do seu serviço para ir até a base das fadas, não tendo nem 1km de distância, chegou ao local."
+    "Ele entrou em um prédio não alto, subiu as escadas, morrendo de canceira, apertou a campainha e abriu a porta."
+
+    show LaranjaAnjaSmile at midleftpos with dissolve
+    LaranjaAnja "Seja bem-vindo! Que bom que você veio, [p]!"
+
+    show SteveAppleSmile at midrightpos with dissolve
+    SteveApple "Hoje a Aiya e Bromélia estão combatendo outros DCNTs, vão demorar um pouco. Fique à vontade."
+
+    p "Obrigado."
+
+    SteveApple "Enquanto elas não chegam, vou explicar como você vai melhorar a sua dieta."
+    SteveApple "A Aiya ajudará com suas decisões alimentares e a Bromélia com atividades práticas."
+
+    p "Atividades práticas...? olha preocupado"
+
+    SteveApple "Vamos começar pela alimentação saudável."
+
+    # Mostra pirâmide alimentar
+    #scene bg_escritorio
+
+    SteveApple "Doces e oleosos devem ser consumidos o mínimo possível."
+    SteveApple "Já os cereais e hortifruti devem ser a base da sua alimentação."
+
+    # Aqui começa a parte interativa
+    SteveApple "Até aí está ok?"
+
+    menu:
+        "Sim":
+            SteveApple "Maravilha, vamos continuar."
+            jump explicacao1
+
+        "Não":
+            SteveApple "Resumindo: coma pouco doce e gordura, e mais arroz, batata, couve, brócolis, banana, maçã..."
+            jump explicacao1
+
+label explicacao1:
+    SteveApple "Temos também o consumo de alimentos proteicos, onde eles terão que ser consumidos em quantidades médias."
+    SteveApple ". Isso porque precisamos deles para a construção do nosso corpo, mas em excesso pode ser ruim ao nosso corpo pois teremos muita energia sobrando."
+
+    # Mostra prato saudável
+    # scene bg_escritorio
+
+    SteveApple "Imagine seu prato dividido em 4 partes:"
+    SteveApple "25%% proteínas (metade animal, metade vegetal), 25%% cereais e tubérculos e 50%% hortaliças e frutas."
+    SteveApple "na verdade, tudo terá que ser equilibrado. Qual quer coisa em excesso, sendo comida boa ou ruim, faz mal ao nosso corpo."
+
+    p "Mas eu não sinto que eu como tanto assim expressão de dúvida"
+    SteveApple "Agora vamos falar sobre porção então."
+    SteveApple "Primeiro, nós temos a quantidade necessária de caloria|energia para ser ingerida por dia. Isso é definido por cálculos, mas geralmente padronizado para um adulto  de 2000kcal."
+    SteveApple "isso dependerá se a pessoa faz muito excessício físico, se usa muita energia do corpo para realizar atividades, se tem doenças, e outros fatores."
+
+    #Aparece uma tela com tabelas escritas as refeições: café da manhã, colação, almoço, café 
+    #da tarde, janta e ceia, com as suas porcentagens calóricas por refeições mais o Chibi Steve Apple 
+
+    SteveApple "Vamos considerar que você consuma 2000kcal por dia. Recomenda-se que fala 6 refeições ao dia, sendo as mais calóricas: Café da manhã, almoço e janta. Os outros 3 seriam após essas refeições para não passar fome entre essas refeições. "
+    
+    #Aparece a imagem do prato saudável de acordo com a guia alimentar junto com Steve chibi
+    #  
+    SteveApple "E para cada refeições mais pesadas, você terá que partir o seu prato em 4 partes, onde 25%% do prato deve ser proteínas, sendo dividitos em metade animal e metade vegetal."
+    SteveApple "Por exemplo: Feijão, grão de bico, lentilha, etc. Para proteína vegetal."
+    SteveApple "Carne suína, bovina, aves, leites e derivados, ovos, peixes em proteína de origem animal."
+    SteveApple "Outro 25%% deve ser de cereais, raízes e tubérculos, que são basicamente arroz (cereal), raíses como mandioca, nabo, entre outros, e batatas em geral que são os tubérculos."
+    SteveApple "Agora, a maior parte do prato deve ser provenientes de hortaliças, até frutas podem entrar"
+    SteveApple "Os hortfruts podem estar em formas de refogados, cozidos, grelhados, cruas, entre outras. Pode ser como salada de alface, repolho refogado, quiabo grelhado, milho cozido, entre outros."
+
+    
+
+    # Segunda escolha
+    SteveApple "Está conseguindo acompanhar?"
+
+    menu:
+        "Sim":
+            SteveApple "Perfeito, vamos prosseguir então."
+            jump regra_de_ouro
+
+        "Não":
+            SteveApple "Vamos pensar em outra forma. Você tem o prato, do jeito que você essa imagem."
+            #"Steve mostra a imagem do prato dividido em 4 partes e explica novamente."
+            SteveApple "Como você vê, tem 4 partes, 1 é grande que refere à metade do prato, é a quantidade que deve colocar no prato de legumes e verduras em forma de refogado, cozido, crua como salada, entre outras formas de preparo."  
+            SteveApple "1 é mediano, refere à metade da metade (1/4) do prato. Essa parte é cereais e tubérculos, arroz, batata, mandioca, entre outros."
+            SteveApple "E tem 2 partes que está divido bem pequenino, que é 1/8."
+            SteveApple "Essas duas partes são as proteínas, uma de origem animal e outra de vegetal."
+            SteveApple "Origem animal seria bisteca, frango, ovo, peixe, entre outros. Já de origem vegetal seria feijão, grão de bico, lentilha, etc."
+
+            jump regra_de_ouro
+
+label regra_de_ouro:
+    SteveApple "Agora, o importante você saber é: Regra de ouro para alimentação saudável."
+    p "Regra de ouro?"
+    SteveApple "Sim, uma regra muito fácil de entender. Basicamente é:"
+
+    #[Aparece uma divisão de 2 da tela com produtos in Natura minimamente processados na 
+    #esquerda, e no lado direito, os processados e ultraprocessados] 
+
+    SteveApple "Comer mais produtos in Natura, que são frutas, legumes e verduras que não passaram por quase nenhum processo."
+    SteveApple "Diminuir quantidade de produtos processados e ultraprocessados, que seria salgadinhos, doces, conservas, etc."
+    SteveApple "Tem também os 10 passos para uma alimentação adequada, resumidamente é coma equilibradamente, diminuindo muitas gorduras,"
+    SteveApple "sais, açúcares, alimentos ultraprocessados, presando nos alimentos frescos e comendo junto com alguém compartilhando a exeriência do comer junto, participando nos preparos e desenvolvendo juntos, entre outras ações."
+    SteveApple "Se você tem interesse pesquise: 10 passos da alimentação adequada e saudável que aparecerá um arquivo do SUS"
+    SteveApple "Então, conseguiu entender tudo?"
+
+    menu:
+        "Sim":
+            SteveApple "Ótimo, a partir de amanhã você já sabe o que tem que fazer então!"
+            LaranjaAnja "Qualquer dúvida, estaremos aqui!"
+            p "Se eu quiser visitar vocês para comer juntos, vocês aceitariam?"
+            "Steve e Laranja olham entre si, sorriem um pouco e dizem juntos:"
+            SteveApple "Com certeza!"
+            LaranjaAnja "Com certeza!"
+            jump cap9
+
+        "Não":
+            SteveApple "Ok, vou repetir novamente para você."
+            jump explicacao1
 
     return
