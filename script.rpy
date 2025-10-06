@@ -48,19 +48,51 @@ transform half_body:
 #image bg_cafeteria = im.Scale("images/Background/bg_cafeteria_tarde.jpg", config.screen_width, config.screen_height)
 #image bg_slide_dcnb = im.Scale("images/Background/bg_slide_dcnb.png", config.screen_width, config.screen_height)
 
-image bg_escritorio = im.Scale("images/Background/bg office.png", config.screen_width, config.screen_height)
-image bg_quarto = im.Scale("images/Background/bg_quarto.jpg", config.screen_width, config.screen_height)
-image bg_rua = im.Scale("images/Background/bg_rua.jpg", config.screen_width, config.screen_height)
-image bg_parque_tarde = im.Scale("images/Background/bg_parque_tarde.jpg", config.screen_width, config.screen_height)
+#image bg_escritorio = im.Scale("images/Background/bg office.png", config.screen_width, config.screen_height)
+#image bg_quarto = im.Scale("images/Background/bg_quarto.jpg", config.screen_width, config.screen_height)
+#image bg_rua = im.Scale("images/Background/bg_rua.jpg", config.screen_width, config.screen_height)
+#image bg_parque_tarde = im.Scale("images/Background/bg_parque_tarde.jpg", config.screen_width, config.screen_height)
 #image bg_parque_tarde_baguncado = im.Scale("images/Background/bg_parque_tarde_baguncado.png", config.screen_width, config.screen_height)
 
 #image = RECEPCAO
 #image = DA RUA
-image bg_casa_noite = im.Scale("images/Background/bg_casa_noite.jpg", config.screen_width, config.screen_height)
+#image bg_casa_noite = im.Scale("images/Background/bg_casa_noite.jpg", config.screen_width, config.screen_height)
 #image bg_cafeteria = im.Scale("images/Background/bg_cafeteria.jpg", config.screen_width, config.screen_height)
 #image bg_apartamento = im.Scale("images/Background/bg_apartamento.jpg", config.screen_width, config.screen_height)
 
 #image = CASA (lado de dentro "dia")
+
+#------------------------------------------------------------------------------------------
+
+#recepção 
+#apartamento
+#casa (lado de fora, noite)
+#apartamento (base)
+
+image bg_escritorio = im.Scale("images/Background/bg office.png", config.screen_width, config.screen_height)
+
+image bg_ruaNoite = im.Scale("images/Background/City_Night.png", config.screen_width, config.screen_height)
+image bg_ruaDia = im.Scale("images/Background/City_Morning.png", config.screen_width, config.screen_height)
+image bg_ruaTarde = im.Scale("images/Background/City_Afternoon.png", config.screen_width, config.screen_height)
+image bg_ruaChovendo = im.Scale("images/Background/City_Raining.png", config.screen_width, config.screen_height)
+
+
+image bg_quartoDia = im.Scale("images/Background/Bedroom_Day.png", config.screen_width, config.screen_height)
+image bg_quartoTarde = im.Scale("images/Background/Bedroom_Evening.png", config.screen_width, config.screen_height)
+image bg_quartoNoite = im.Scale("images/Background/Bedroom_Night.png", config.screen_width, config.screen_height)
+image bg_quartoNoiteDark = im.Scale("images/Background/Bedroom_Night_Dark.png", config.screen_width, config.screen_height)
+
+image bg_parque_dia = im.Scale("images/Background/bg_parque_Dia.jpg", config.screen_width, config.screen_height)
+image bg_parque_tarde = im.Scale("images/Background/bg_parque_tarde.jpg", config.screen_width, config.screen_height)
+
+image bg_casaDia = im.Scale("images/Background/Livingroom_Day.png", config.screen_width, config.screen_height)
+image bg_casaNoite = im.Scale("images/Background/Livingroom_Night.png", config.screen_width, config.screen_height)
+image bg_casaNoiteDark = im.Scale("images/Background/Livingroom_Dark.png", config.screen_width, config.screen_height)
+
+image bg_cafeteria = im.Scale("images/Background/Restaurant_B.png", config.screen_width, config.screen_height)
+
+image bg_apartamentoDia = im.Scale("images/Background/Sitting_Room.png", config.screen_width, config.screen_height)
+image bg_apartamentoNoite= im.Scale("images/Background/Sitting_Room_Dark.png", config.screen_width, config.screen_height)
 
 
 # Sons adicionais
@@ -127,7 +159,8 @@ label start:
     #---------------------------------------------------------------------------------------------------
     #CAPITULO1 CENA3
     label cap1cena3:
-    #IMAGEM DA RUA
+
+    scene bg_ruaNoite
 
     "Ao caminho de casa diante do transito, as luzes refletem o ambiente e as pessoas que seguem de volta para suas casas."
     "Principal percebe que as pessoas ao seu redor parecem entristecidas... Desanimadas."
@@ -145,7 +178,7 @@ label start:
     #CAPITULO1 CENA4
 
     #IMAGEM CASA (lado de dentro "noite")
-    scene bg_casa_noite
+    scene bg_casaNoite
 
     "Ao chegar na casa, o Principal vai largando suas coisas pelo caminho e deixando sua casa bagunçada."
     #IMAGEM CORREDOR DE ENTRADA MEIO BAGUNCADA
@@ -163,14 +196,15 @@ label start:
     #CAPITULO1 CENA5
     label cap1cena5:
     #IMAGEM CASA (lado de fora "dia")
-    scene bg_quarto
+    scene bg_quartoNoiteDark 
 
     "Depois de uma longa noite, o dia amanhece."
-
+    scene bg_quartoDia with fade
     #IMAGEM CASA (lado de dentro "dia")
     "Principal começa a se arrumar para o trabalho, e quando vai ao banheiro se depara com algo inusitado."
 
     p "O QUE ESTA ACONTECENDO?!! O QUE É ISSO?! ISSO SOU EU?!"
+
     #IMAGEM PRINCIPAL SE OLHANDO NO ESPELHO
 
     "Quando está prestes a terminar de se arrumar, Principal se olha no espelho e percebe diversas escamas espalhas pelo seu corpo." 
@@ -183,7 +217,7 @@ label start:
 
     #Capitulo 2
     # Cena 1 — Quarto do Principal
-    scene bg_quarto
+    scene bg_quartoDia
     play sound sound_breath loop
 
     narrator "O desespero toma conta. Ele tenta arrancar os nuggets que brotam de sua pele, mas não importa quantas vezes retire, eles sempre voltam."
@@ -203,7 +237,7 @@ label start:
     narrator "Ele corre até o guarda-roupa, pega um cachecol para cobrir as escamas de nuggets, coloca luvas para esconder os dedos em forma de batata frita, pega sua bolsa com papéis inacabados e sai apressado."
 
     # Cena 2 — Rua
-    scene bg_rua with fade
+    scene bg_ruaDia with fade
     play sound sound_rua loop
 
     narrator "Ele corre até a empresa, desviando das pessoas, sempre com a cabeça baixa para esconder o rosto."
@@ -356,7 +390,7 @@ label start:
 
     #CAPITULO5 CENA1
         # Cena 1: cafeteria tarde
-    #scene bg_cafeteria with fade
+    scene bg_cafeteria with fade
     #play sound sound_cafeteria loop
     narrator "O Principal entra na cafeteria ainda abalado pelo que presenciou no parque. Ele se senta em uma mesa afastada. Aos poucos, quatro pessoas se aproximam e sentam-se ao redor."
 
@@ -429,7 +463,54 @@ label start:
 
     #stop sound
     #play sound porta_batendo
+#---------------------------------------------------------------------------------------------------
+    #CAPITULO6 CENA1
+    label cap6cena1:
+    #IMAGEM FORA DA CAFETERIA
 
+    AyaPapaya "A gente já passou por isso!"
+    #fala, direta
+
+    p "O que?"
+    #fala, duvida
+
+    AyaPapaya "Você disse que nós parecemos ser saudáveis, mas na verdade, nós somos porque devemos ser saudáveis"
+    #fala, explicativa
+
+    p "Como assim?"
+    #fala, duvida
+
+    AyaPapaya "Nós desenvolvemos DCNT, cada um tem o seu, e eu tenho diabetes tipo 1."
+    #fala, explicativa
+
+    p "Então você não é saudável?"
+    #fala, duvida
+
+    AyaPapaya "Eu tento ser o mais saudável possível. Lembra que o Steve disse? Que pode ser desenvolvido por causa da Genética."
+    AyaPapaya "Diabetes tipo 1 não foi por eu não ser saudável. E agora, eu não consigo viver sem remédio. Eu não consigo comer muita coisa que eu quero."
+    #fala, explicativa
+
+    p "Você não pode? Porque?"
+    #fala, duvida
+
+    AyaPapaya "Se eu não controlar o que eu como, eu posso morrer."
+    #fala, explicativa
+
+    "Principal fica assustado e quieto, assim pensativo"
+    #narracao
+
+    p "Desculpa, eu não sei o que te dizer"
+    #fala, magoado, indeciso
+
+    AyaPapaya "Nós só queremos que você não seja igual nós, que não tenha sequelas"
+    #fala, confortante
+
+    "P pensa profundamente e com medo de seu estado atual, pede ajuda a ela."
+    #narracao
+
+    p "Aiya, eu preciso de ajuda de vocês"
+    #fala, direta
+#-----------------------------------------------------------------
     #CAPITULO 7
     # Cena 1 — cafeteria 
 
@@ -454,7 +535,7 @@ label start:
     stop sound
 
     # Cena 2: base secreta
-    scene bg_apartamento with fade
+    scene bg_apartamentoDia with fade
     #play sound sound_silence loop
     narrator "Eles seguem para a base. É uma sala comum, um apartamento aparentemente normal, mas com detalhes estranhos..."
     narrator "Não parece que alguém mora ali."
@@ -533,7 +614,7 @@ label start:
     # Cena 1 
     label cena8:
 
-    scene bg_casa_noite with fade
+    scene bg_casaNoite with fade
     "Alguns dias depois..."
     "O principal após mudar de emprego, passou acostumando ao trabalho, diminuindo seu estresse físico e psicológico, conseguindo acalmar a sua compulsão alimentar."
     "Mas ele ainda não sabia como comia saudavelmente."
