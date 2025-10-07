@@ -7,6 +7,7 @@ define p = Character("Principal")
 define Monstro = Character("Monstro")
 
 default preferences.text_cps= 35
+default score = 0
 
 # Imagem Personagens
 # Aya Papaya
@@ -44,23 +45,7 @@ transform half_body:
     zoom 1.4        # aumenta o tamanho da personagem
     yalign -0.10      # desce um pouco (do tronco pra cima!!)
 
-# Fundo cenas
-#image bg_cafeteria = im.Scale("images/Background/bg_cafeteria_tarde.jpg", config.screen_width, config.screen_height)
-#image bg_slide_dcnb = im.Scale("images/Background/bg_slide_dcnb.png", config.screen_width, config.screen_height)
 
-#image bg_escritorio = im.Scale("images/Background/bg office.png", config.screen_width, config.screen_height)
-#image bg_quarto = im.Scale("images/Background/bg_quarto.jpg", config.screen_width, config.screen_height)
-#image bg_rua = im.Scale("images/Background/bg_rua.jpg", config.screen_width, config.screen_height)
-#image bg_parque_tarde = im.Scale("images/Background/bg_parque_tarde.jpg", config.screen_width, config.screen_height)
-#image bg_parque_tarde_baguncado = im.Scale("images/Background/bg_parque_tarde_baguncado.png", config.screen_width, config.screen_height)
-
-#image = RECEPCAO
-#image = DA RUA
-#image bg_casa_noite = im.Scale("images/Background/bg_casa_noite.jpg", config.screen_width, config.screen_height)
-#image bg_cafeteria = im.Scale("images/Background/bg_cafeteria.jpg", config.screen_width, config.screen_height)
-#image bg_apartamento = im.Scale("images/Background/bg_apartamento.jpg", config.screen_width, config.screen_height)
-
-#image = CASA (lado de dentro "dia")
 
 #------------------------------------------------------------------------------------------
 
@@ -83,13 +68,16 @@ image bg_quartoNoite = im.Scale("images/Background/Bedroom_Night.png", config.sc
 image bg_quartoNoiteDark = im.Scale("images/Background/Bedroom_Night_Dark.png", config.screen_width, config.screen_height)
 
 image bg_parque_dia = im.Scale("images/Background/bg_parque_Dia.jpg", config.screen_width, config.screen_height)
-image bg_parque_tarde = im.Scale("images/Background/bg_parque_tarde.jpg", config.screen_width, config.screen_height)
+image bg_parque_tarde = im.Scale("images/Background/bg_parque_Tarde.jpg", config.screen_width, config.screen_height)
+
+
 
 image bg_casaDia = im.Scale("images/Background/Livingroom_Day.png", config.screen_width, config.screen_height)
 image bg_casaNoite = im.Scale("images/Background/Livingroom_Night.png", config.screen_width, config.screen_height)
 image bg_casaNoiteDark = im.Scale("images/Background/Livingroom_Dark.png", config.screen_width, config.screen_height)
 
 image bg_cafeteria = im.Scale("images/Background/Restaurant_B.png", config.screen_width, config.screen_height)
+image bg_cafeteriaFora = im.Scale("images/Background/bg_rua.jpg", config.screen_width, config.screen_height)
 
 image bg_apartamentoDia = im.Scale("images/Background/Sitting_Room.png", config.screen_width, config.screen_height)
 image bg_apartamentoNoite= im.Scale("images/Background/Sitting_Room_Dark.png", config.screen_width, config.screen_height)
@@ -119,9 +107,72 @@ define sound_heartbeat = "audio/coracao.mp3"
 # Musica?
 #define music_relax = "audio/musica_relaxante.mp3"
 
+init python:
+    import random, math
+
+screen bubble_menu(opcoes):
+    tag menu
+    modal True
+    zorder 100
+
+    add Solid("#0003")  # fundo escurecido suave
+
+    # Parâmetros
+    default min_distance = 0.18  # distância mínima entre bolhas (0.0–1.0)
+    default posicoes = []
+
+    python:
+        def distancia(a, b):
+            return math.hypot(a[0] - b[0], a[1] - b[1])
+
+        posicoes = []
+        for i in range(len(opcoes)):
+            tentativas = 0
+            while True:
+                x = random.uniform(0.15, 0.85)
+                y = random.uniform(0.25, 0.75)
+                if all(distancia((x, y), p) > min_distance for p in posicoes):
+                    posicoes.append((x, y))
+                    break
+                tentativas += 1
+                if tentativas > 50:  # fallback se o espaço estiver muito cheio
+                    posicoes.append((x, y))
+                    break
+
+    # Criação das bolhas
+    for i, (texto, acao) in enumerate(opcoes):
+        $ x, y = posicoes[i]
+        textbutton texto:
+            action acao
+            xalign x
+            yalign y
+
+            background Frame("gui/button/choice_idle_background2.png", 50, 50)
+            hover_background Frame("gui/button/choice_hover_background2.png", 50, 50)
+
+            text_color "#000"
+            text_hover_color "#ffffcc"
+            text_size 32
+            text_align 0.5  # centraliza o texto dentro da bolha
+            xminimum 380
+            yminimum 90
+            padding (25, 25)
+            at bubble_float
+
+
+transform bubble_float:
+    alpha 0
+    zoom 0.8
+    linear 0.3 alpha 1.0 zoom 1.0
+    easein 1.0 yoffset -10
+    easeout 1.0 yoffset 0
+    repeat
+
+
 # The game starts here.
 
 label start:
+
     scene bg_escritorio 
         
     "Em mais um dia normal de trabalho..."
@@ -148,7 +199,7 @@ label start:
     jump cap1cena2
 
     #---------------------------------------------------------------------------------------------------
-    #CAPITULO1 CENA2
+        #CAPITULO1 CENA2
     label cap1cena2:
     #image = RECEPCAO
 
@@ -440,6 +491,8 @@ label start:
     
     narrator "O Principal se levanta bruscamente, e tenta sair do local."
 
+    
+
     show LaranjaAnjaAngry at rightpos, half_body
     LaranjaAnja " nome do principal, você sabe que não está bem."
 
@@ -467,6 +520,10 @@ label start:
     #CAPITULO6 CENA1
     label cap6cena1:
     #IMAGEM FORA DA CAFETERIA
+
+    scene bg_cafeteriaFora with fade
+
+    show LaranjaAnjaAngry at midleftpos, half_body
 
     AyaPapaya "A gente já passou por isso!"
     #fala, direta
@@ -617,18 +674,25 @@ label start:
     scene bg_casaNoite with fade
     "Alguns dias depois..."
     "O principal após mudar de emprego, passou acostumando ao trabalho, diminuindo seu estresse físico e psicológico, conseguindo acalmar a sua compulsão alimentar."
-    "Mas ele ainda não sabia como comia saudavelmente."
+    "Mas ele ainda não sabia como comer de forma saudavel."
     "Ele foi atrás das fadas, pois recebeu uma mensagem do Steve Apple falando que estava pronto para começar a nova rotina."
 
-    #imagem 
+    #imagem da rua
+    #imagem de entrada de apartamento
+
+    scene bg_ruaDia with fade
+
     "Ele pediu um Uber do seu serviço para ir até a base das fadas, não tendo nem 1km de distância, chegou ao local."
     "Ele entrou em um prédio não alto, subiu as escadas, morrendo de canceira, apertou a campainha e abriu a porta."
+    
+    scene bg_apartamentoDia with fade
 
-    show LaranjaAnjaSmile at midleftpos with dissolve
-    LaranjaAnja "Seja bem-vindo! Que bom que você veio, [p]!"
+    show LaranjaAnjaSmile at midleftpos, half_body
+    LaranjaAnja "Seja bem-vindo! Que bom que você veio, nome do protagonista!"
 
-    show SteveAppleSmile at midrightpos with dissolve
+    show SteveAppleSmile at midrightpos, half_body
     SteveApple "Hoje a Aiya e Bromélia estão combatendo outros DCNTs, vão demorar um pouco. Fique à vontade."
+    hide LaranjaAnjaSmile
 
     p "Obrigado."
 
@@ -659,7 +723,7 @@ label start:
 
 label explicacao1:
     SteveApple "Temos também o consumo de alimentos proteicos, onde eles terão que ser consumidos em quantidades médias."
-    SteveApple ". Isso porque precisamos deles para a construção do nosso corpo, mas em excesso pode ser ruim ao nosso corpo pois teremos muita energia sobrando."
+    SteveApple "Isso porque precisamos deles para a construção do nosso corpo, mas em excesso pode ser ruim ao nosso corpo pois teremos muita energia sobrando."
 
     # Mostra prato saudável
     # scene bg_escritorio
@@ -736,5 +800,325 @@ label regra_de_ouro:
         "Não":
             SteveApple "Ok, vou repetir novamente para você."
             jump explicacao1
+    SteveApple "Então, conseguiu entender tudo?"
+    jump cap9
 
-    return
+
+label cap9:
+   #Capitulo 9
+   #ação 1
+
+    #[Nesta cena terá as fadas falando perguntando o que fará para cada ação que terá no dia, sendo 
+    # 1: Café da manhã, 2: Atividade física, 3: Almoço e janta, 4: Descanço, 
+    # para cada ações tem 6 alternativas, onde estão separadas em bolhas, quando clicados mostra a cena da escolha.
+    #  Isso afetará no score para os tipos de finais possíveis.]
+
+
+label cena9:
+
+    scene bg_quartoDia with fade
+    show AyaPapayaN1 at rightpos, half_body
+
+    p "Onde estou agora?"
+    AyaPapaya "Oi [p]! Vim te acompanhar hoje para ver como você vai passar o seu dia! 
+          Não vou ficar interferindo, pois no fim, a escolha é sua. 
+          Mas estarei dando dicas se você estiver com muita dúvida."
+
+    "Agora escolha o que você vai comer no lanche da manhã/tarde:"
+
+    call screen bubble_menu([
+        ("Maçã", Jump("lanche_maca")),
+        ("Cereal com leite", Jump("lanche_cereal")),
+        ("Iogurte com granola", Jump("lanche_iogurte")),
+        ("Pizza", Jump("lanche_pizza")),
+        ("Hambúrguer", Jump("lanche_hamburguer")),
+        ("Biscoito recheado", Jump("lanche_biscoito")),
+    ])
+
+label lanche_maca:
+    show AyaPapayaHappy at rightpos, half_body
+    AyaPapaya "Uma fruta de manhãzinha é muito gostoso! 
+              Se passar fome, você pode comer mais frutas na colação. 
+              Café da manhã é uma refeição importante, 
+              se quiser comer pão, leite, granola etc., pode."
+    $ score += 1
+    jump fim_acao1
+
+label lanche_cereal:
+    show AyaPapayaN2 at rightpos, half_body
+    AyaPapaya "É um bom começo! 
+              Se colocar uvas, morangos ou manga, 
+              fica mais nutritivo e gostoso."
+    $ score += 1
+    jump fim_acao1
+
+label lanche_iogurte:
+    show AyaPapayaHappy at rightpos, half_body
+    AyaPapaya "A granola tem açúcar e fibras! 
+              Faz bem para o intestino e enche o estômago."
+    $ score += 1
+    jump fim_acao1
+
+label lanche_pizza:
+    show AyaPapayaSad at rightpos, half_body
+    AyaPapaya "Pizza é bem calórica. Melhor deixar para um dia específico da semana."
+    $ score -= 1
+    jump fim_acao1
+
+label lanche_hamburguer:
+    show AyaPapayaAngry at rightpos, half_body
+    AyaPapaya "Hambúrguer é calórico para começar o dia... 
+              Que tal um sanduíche de atum ou salpicão?"
+    $ score -= 1
+    jump fim_acao1
+
+label lanche_biscoito:
+    show AyaPapayaSad at rightpos, half_body
+    AyaPapaya "Se comer uns 3, tudo bem... mas o pacote todo vai te fazer mal."
+    $ score -= 1
+    jump fim_acao1
+
+label fim_acao1:
+    "Você terminou sua escolha do lanche da manhã/tarde."
+    jump acao2_atividade_fisica
+
+label acao2_atividade_fisica:
+
+    scene bg_parque_tarde with fade
+    show AyaPapayaN1 at rightpos, half_body
+
+    AyaPapaya "Antes de trabalhar, vamos praticar alguma atividade física! 
+               Vou te acompanhar no que você decidir!"
+
+    call screen bubble_menu([
+        ("Correr 10 km", Jump("fisica_correr")),
+        ("Dar uma volta no parque", Jump("fisica_parque")),
+        ("Treinar futebol", Jump("fisica_futebol")),
+        ("Tomar sol na varanda", Jump("fisica_sol")),
+        ("Assistir Netflix", Jump("fisica_netflix")),
+        ("Ir direto no trabalho andando", Jump("fisica_trabalho")),
+    ])
+
+label fisica_correr:
+    show AyaPapayaHappy at rightpos, half_body
+    AyaPapaya "É melhor parar por aqui, senão não vai aguentar o resto do dia!"
+    p "Eu... Eu cansei..."
+    $ score -= 2
+    jump fim_acao2
+
+label fisica_parque:
+    show AyaPapayaN1 at rightpos, half_body
+    AyaPapaya "Que belo dia! Como você está se sentindo, [p]?"
+    p "Cansado, mas é um cansaço bom!"
+    $ score += 2
+    jump fim_acao2
+
+label fisica_futebol:
+    show AyaPapayaSad at rightpos, half_body
+    AyaPapaya "[p]!!!!"
+    p "AI!!!"
+    $ score -= 2
+    jump fim_acao2
+
+label fisica_sol:
+    show AyaPapayaN2 at rightpos, half_body
+    AyaPapaya "Não é assim que funciona, [p]..."
+    p "Perder água é emagrecer!"
+    $ score -= 1
+    jump fim_acao2
+
+label fisica_netflix:
+    show AyaPapayaN2 at rightpos, half_body
+    AyaPapaya "[p]!?! O que você está fazendo???"
+    p "Vou fazer exercício depois!"
+    $ score -= 1
+    jump fim_acao2
+
+label fisica_trabalho:
+    show AyaPapayaN1 at rightpos, half_body
+    AyaPapaya "Tenha uma boa caminhada!"
+    p "Obrigado!"
+    $ score += 1
+    jump fim_acao2
+
+label fim_acao2:
+    "Você terminou a atividade física do dia."
+    jump acao3_almoco_janta
+
+    
+
+label acao3_almoco_janta:
+
+    scene bg_quartoDia with fade
+    show AyaPapayaN1 at rightpos, half_body
+
+    AyaPapaya "[p]! Agora eu preciso ir trabalhar! 
+               Não esqueça, sempre pense em comer saudavelmente!"
+
+    call screen bubble_menu([
+        ("Arroz, feijão, salada, carne", Jump("almoco_refeicao")),
+        ("Sopa de mandioquinha com carne", Jump("almoco_sopa")),
+        ("Whey protein", Jump("almoco_whey")),
+        ("Milho espiga", Jump("almoco_milho")),
+        ("Donuts", Jump("almoco_donuts")),
+        ("Água", Jump("almoco_agua")),
+    ])
+
+label almoco_refeicao:
+    p "Nossa, faz tempo que não como comida de verdade!"
+    $ score += 2
+    jump fim_acao3
+
+label almoco_sopa:
+    p "Pensei que estaria ruim... Que gostoso!"
+    $ score += 1
+    jump fim_acao3
+
+label almoco_whey:
+    p "Gostoso, mas estou com fome. Acho que vou beber mais."
+    $ score -= 1
+    jump fim_acao3
+
+label almoco_milho:
+    p "Vi que tem fibras, mas não gostei muito..."
+    $ score -= 1
+    jump fim_acao3
+
+label almoco_donuts:
+    p "Ai que gostoso!!!"
+    p "Não sei se é bom, mas estou feliz!"
+    $ score -= 1
+    jump fim_acao3
+
+label almoco_agua:
+    p "Se eu não comer nada, posso abaixar o peso..."
+    $ score -= 2
+    jump fim_acao3
+
+label fim_acao3:
+    "Você terminou a refeição."
+    jump acao4_descanso
+
+    
+label acao4_descanso:
+
+    scene bg_quartoNoite with fade
+    show AyaPapayaN1 at rightpos, half_body
+
+    AyaPapaya "Conseguiu comer bem [p]? Agora é a hora de descansar!"
+
+    call screen bubble_menu([
+        ("Fazer alongamento", Jump("descanso_alongamento")),
+        ("Estudar", Jump("descanso_estudar")),
+        ("Dormir 10h", Jump("descanso_dormir")),
+        ("Comer petisco", Jump("descanso_petisco")),
+        ("Jogar jogo viciante", Jump("descanso_jogo")),
+        ("Maratonar filme", Jump("descanso_filme")),
+    ])
+
+label descanso_alongamento:
+    show AyaPapayaN1 at rightpos, half_body
+    AyaPapaya "Vou te acompanhar! Chegando em casa eu vou dormir também kkkkkkk"
+    $ score += 2
+    jump fim_acao4
+
+label descanso_estudar:
+    show AyaPapayaN1 at rightpos, half_body
+    AyaPapaya "É bom estudar antes de dormir, só não pode exagerar demais viu"
+    $ score += 1
+    jump fim_acao4
+
+label descanso_dormir:
+    AyaPapaya "[p]! Você está atrasado para o trabalho!!! Acorda!"
+    $ score -= 2
+    jump fim_acao4
+
+label descanso_petisco:
+    AyaPapaya "[p]... Fazer ceia é legal... Mas o que você está comendo não é legal..."
+    $ score -= 1
+    jump fim_acao4
+
+label descanso_jogo:
+    p "Que jogo legallllll!!!!!!!!!!"
+    $ score -= 1
+    jump fim_acao4
+
+label descanso_filme:
+    p ".........."
+    $ score -= 1
+    jump fim_acao4
+
+label fim_acao4:
+    "Você terminou o seu dia! Agora é hora de descansar de verdade."
+    
+
+    
+label cena10_final_demo:
+
+    scene bg_parque_dia with fade  # Cena inicial para a narração
+    "Algumas semanas depois..."
+
+    if score >= 4:  # Rota boa
+        
+
+        show AyaPapayaHappy at leftpos, half_body
+        show BromeliaBromeliaHappy at midleftpos, half_body
+        show LaranjaAnjaHappy at midrightpos, half_body
+        show SteveAppleHappy at rightpos, half_body
+
+        AyaPapaya "[p]! Hoje você vai passear também? Depois posso ir com você?"
+        p "Claro! Eu pretendo dar uma volta pela prefeitura hoje"
+        BromeliaBromelia "Podemos correr um pouco também! O Steve não atingiu a meta de hoje ainda, vamos todos juntos depois?"
+        LaranjaAnja "Eu quero!"
+        p "Vamos! Depois do trabalho então!"
+        LaranjaAnja "Após isso, podemos jantar juntos também!"
+        "Todos andando em algum lugar felizes"
+
+        p "Eu me sinto muito melhor agora. Graças a elas, estou conseguindo diminuir aqueles sinais de DCNT."
+        p "Ainda, psicologicamente me sinto mais livre depois que comecei a fazer atividades físicas."
+        p "Lembrei dos sabores nostálgicos, sabores que lembram da minha infância, comida de verdade..."
+        p "Ainda estou com vários problemas no corpo, mas se eu continuar com essa rotina mais saudável, eu consigo voltar a ser uma pessoa saudável."
+        p "Obrigado pessoal, eu agora sinto mais vivo do que antes."
+   
+        p "A partir de amanhã, eu vou tentar novas coisas!"
+        "Final do Demo"
+
+    elif score > 2:  # Rota mediano
+
+        p "Não mudou nada depois que elas vieram...."
+        p "Me sinto mesma coisa, não vejo nada demais......"
+        p "Será que eu preciso ser saudável para viver mesmo?...."
+        p "Eu sou a mesma coisa de antes....."
+        p "Eu mudei de trabalho, não me estresso mais quanto antes..."
+        p "Eu diminui o que eu como, mas ainda continuo comendo doces, salgados, entre outros......."
+        p "Eu até comecei a comer verduras......"
+        p "Mas não mudei nada..."
+        p "Ah...... Se é assim, vou continuar sendo assim mesmo. Acho que sou mais feliz do jeito que estou agora..."
+        scene black with fade
+        p "Acho que não vai acontecer mais nada......"
+        
+
+    else:  # Rota ruim, score < 2
+
+
+        show AyaPapayaSad at leftpos, half_body
+        show BromeliaBromeliaSad at midleftpos, half_body
+        show LaranjaAnjaN1 at midrightpos, half_body
+        show SteveAppleSad at rightpos, half_body
+
+        SteveApple "Não conseguimos de novo........"
+        BromeliaBromelia "Será que algum dia conseguiremos combater essa maldição?"
+        LaranjaAnja "Aiya............"
+        AyaPapaya "Eu......... Cancei..............."
+
+        AyaPapaya "Porque as pessoas não entendem que DCNT pode matar????..............."
+        SteveApple "Aiya...... O que você quer fazer?"
+        BromeliaBromelia "Aiya...... É a sua escolha."
+        AyaPapaya ".............."
+        LaranjaAnja "Você já fez o bastante......... Não precisa fazer mais que isso........."
+        scene black with fade
+        AyaPapaya "Está bem....... Vamos começar de novo...."
+
+
+    "Final da Demo"
+return
